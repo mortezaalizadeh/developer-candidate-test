@@ -5,10 +5,10 @@ export class NotFoundError extends Error {
   }
 }
 
-export class AlreadyExists extends Error {
+export class AlreadyExistsError extends Error {
   constructor(message) {
     super(message ? message : 'Item already exists');
-    this.name = 'AlreadyExists';
+    this.name = 'AlreadyExistsError';
   }
 }
 

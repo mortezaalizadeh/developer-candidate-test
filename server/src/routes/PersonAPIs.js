@@ -40,7 +40,7 @@ class PersonAPIs {
 
       if (ex.name === 'BadArgumentError') {
         response.status(HttpStatus.BAD_REQUEST).send();
-      } else if (ex.name === 'AlreadyExists') {
+      } else if (ex.name === 'AlreadyExistsError') {
         response.status(HttpStatus.CONFLICT).send();
       } else {
         response.status(HttpStatus.INTERNAL_SERVER_ERROR).send(ex.message);

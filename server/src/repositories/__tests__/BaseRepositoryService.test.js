@@ -3,7 +3,7 @@ import Datastore from 'nedb';
 import tmp from 'tmp';
 import fs from 'fs';
 import BaseRepositoryService from '../BaseRepositoryService';
-import { NotFoundError, AlreadyExists } from '../Errors';
+import { NotFoundError, AlreadyExistsError } from '../Errors';
 
 const chance = new Chance();
 
@@ -56,10 +56,10 @@ describe('BaseRepositoryService', () => {
       expect(result.gender).toEqual(info.gender);
     });
 
-    it('should throw AlreadyExists if document already exists with the same id', async () => {
+    it('should throw AlreadyExistsError if document already exists with the same id', async () => {
       const newDoc = await baseRepositoryService.create(info);
 
-      expect(baseRepositoryService.create(newDoc)).rejects.toThrowError(new AlreadyExists());
+      expect(baseRepositoryService.create(newDoc)).rejects.toThrowError(new AlreadyExistsError());
     });
   });
 

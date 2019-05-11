@@ -1,2 +1,2 @@
-export { NotFoundError, AlreadyExists, UnknownError } from './Errors';
+export { NotFoundError, AlreadyExistsError, UnknownError } from './Errors';
 export PersonRepositoryService from './PersonRepositoryService';

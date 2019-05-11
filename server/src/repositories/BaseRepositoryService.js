@@ -1,4 +1,4 @@
-import { NotFoundError, AlreadyExists, UnknownError } from './Errors';
+import { NotFoundError, AlreadyExistsError, UnknownError } from './Errors';
 import { Common } from '../helpers';
 
 export default class BaseRepositoryService {
@@ -15,7 +15,7 @@ export default class BaseRepositoryService {
       this.dataStore.insert(info, (err, newDoc) => {
         if (err) {
           if (err.errorType === 'uniqueViolated') {
-            reject(new AlreadyExists());
+            reject(new AlreadyExistsError());
           } else {
             reject(new UnknownError(err));
           }

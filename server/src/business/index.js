@@ -1,2 +1,2 @@
-export { BadArgumentError, NotFoundError, AlreadyExists, UnknownError } from './Errors';
+export { BadArgumentError, NotFoundError, AlreadyExistsError, UnknownError } from './Errors';
 export PersonService from './PersonService';

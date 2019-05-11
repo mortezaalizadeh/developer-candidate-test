@@ -1,4 +1,4 @@
-import { BadArgumentError, NotFoundError, AlreadyExists, UnknownError } from './Errors';
+import { BadArgumentError, NotFoundError, AlreadyExistsError, UnknownError } from './Errors';
 import { Common } from '../helpers';
 
 export default class PersonService {
@@ -37,8 +37,8 @@ export default class PersonService {
 
       return await this.personRepositoryService.create(info);
     } catch (ex) {
-      if (ex.name === 'AlreadyExists') {
-        throw new AlreadyExists();
+      if (ex.name === 'AlreadyExistsError') {
+        throw new AlreadyExistsError();
       } else {
         throw new UnknownError(ex.message);
       }

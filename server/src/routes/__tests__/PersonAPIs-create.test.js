@@ -5,7 +5,7 @@ import { LoggerMock } from '../../__mocks__';
 import { PersonServiceMock } from '../../business/__mocks__';
 import PersonAPIs from '../PersonAPIs';
 import HttpResponse from './HttpResponse';
-import { BadArgumentError, AlreadyExists, UnknownError } from '../../business';
+import { BadArgumentError, AlreadyExistsError, UnknownError } from '../../business';
 
 const chance = new Chance();
 
@@ -52,8 +52,8 @@ describe('PersonAPIs-create', () => {
     expect(response.content).toBeUndefined();
   });
 
-  it('should return conflict error if the call to the personService create method throw AlreadyExists', async () => {
-    personService.create.mockRejectedValue(new AlreadyExists());
+  it('should return conflict error if the call to the personService create method throw AlreadyExistsError', async () => {
+    personService.create.mockRejectedValue(new AlreadyExistsError());
 
     await personAPIs.create(request, response);
 

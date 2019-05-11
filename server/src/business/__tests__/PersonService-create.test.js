@@ -1,8 +1,8 @@
 import Chance from 'chance';
 import { PersonRepositoryServiceMock } from '../../repositories/__mocks__';
 import PersonService from '../PersonService';
-import { BadArgumentError, AlreadyExists, UnknownError } from '../Errors';
-import { AlreadyExists as RepositoryAlreadyExists, UnknownError as RepositoryUnknownError } from '../../repositories';
+import { BadArgumentError, AlreadyExistsError, UnknownError } from '../Errors';
+import { AlreadyExistsError as RepositoryAlreadyExistsError, UnknownError as RepositoryUnknownError } from '../../repositories';
 
 const chance = new Chance();
 
@@ -127,12 +127,12 @@ describe('PersonService-create', () => {
 
       expect(result).toEqual(expectedResult);
     });
-    it('should throw AlreadyExists error if personRepositoryService create method throws AlreadyExists', async () => {
-      const expectedResult = new RepositoryAlreadyExists();
+    it('should throw AlreadyExistsError error if personRepositoryService create method throws AlreadyExistsError', async () => {
+      const expectedResult = new RepositoryAlreadyExistsError();
 
       personRepositoryService.create.mockRejectedValue(expectedResult);
 
-      expect(personService.create(info)).rejects.toThrowError(new AlreadyExists());
+      expect(personService.create(info)).rejects.toThrowError(new AlreadyExistsError());
     });
 
     it('should throw UnknowError error if personRepositoryService create method throws UnknowError', async () => {
