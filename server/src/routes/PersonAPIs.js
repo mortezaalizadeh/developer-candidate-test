@@ -5,6 +5,12 @@ import { Common } from '../helpers';
 export default
 @route('/persons')
 class PersonAPIs {
+  /**
+   * @brief. The constructor, dependencies will be inject by the DI framework
+   * @param personService - service that will validate input request and create/delete/read/search person information and pass it on the data layer
+   * @param logger - service that will be used for logging
+   * @param sessionId - the unique session ID for the current request
+   */
   constructor({ personService, logger, sessionId }) {
     if (Common.isNullOrUndefined(personService)) {
       throw new Error('personService is required!');
@@ -23,6 +29,11 @@ class PersonAPIs {
     this.sessionId = sessionId;
   }
 
+  /**
+   * @brief. handler to process create person request
+   * @param request - request that contains person infromation to create
+   * @param response - the HTTP response that will be filled up with the result of creating person inforamtion
+   */
   @POST()
   async create(request, response) {
     try {
@@ -48,6 +59,11 @@ class PersonAPIs {
     }
   }
 
+  /**
+   * @brief. handler to process read person request
+   * @param request - request that contains person id of an existing person in the database to read the infromation from
+   * @param response - the HTTP response that contains person inforamtion
+   */
   @route('/:id')
   @GET()
   async read(request, response) {
@@ -73,6 +89,11 @@ class PersonAPIs {
     }
   }
 
+  /**
+   * @brief. handler to process delete person request
+   * @param request - request that contains person id of an existing person in the database to delete the infromation from
+   * @param response - the HTTP response that the result of deleting person information
+   */
   @route('/:id')
   @DELETE()
   async delete(request, response) {
@@ -97,6 +118,11 @@ class PersonAPIs {
     }
   }
 
+  /**
+   * @brief. handler to process search person request
+   * @param request - request that contains criteria to look for existing persons' inforamtion in the database
+   * @param response - the HTTP response that contains the person information that matched the filter criteria
+   */
   @GET()
   async search(request, response) {
     try {

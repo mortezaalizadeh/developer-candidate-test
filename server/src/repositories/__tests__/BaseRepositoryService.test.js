@@ -1,15 +1,19 @@
+import cuid from 'cuid';
 import Chance from 'chance';
 import Datastore from 'nedb';
 import tmp from 'tmp';
 import fs from 'fs';
 import BaseRepositoryService from '../BaseRepositoryService';
 import { NotFoundError, AlreadyExistsError } from '../Errors';
+import { LoggerMock } from '../../__mocks__';
 
 const chance = new Chance();
 
 describe('BaseRepositoryService', () => {
   let databaseFileName;
   let dataStore;
+  let logger;
+  let sessionId;
   let baseRepositoryService;
   let info;
 
@@ -17,7 +21,10 @@ describe('BaseRepositoryService', () => {
     databaseFileName = tmp.fileSync().name;
     dataStore = new Datastore(databaseFileName);
     dataStore.loadDatabase();
-    baseRepositoryService = new BaseRepositoryService(dataStore);
+
+    logger = new LoggerMock();
+    sessionId = cuid();
+    baseRepositoryService = new BaseRepositoryService(dataStore, logger, sessionId);
     info = { name: chance.string(), age: chance.integer({ min: 0 }), gender: chance.string() };
   });
 

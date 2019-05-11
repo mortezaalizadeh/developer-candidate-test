@@ -1,22 +1,29 @@
+import cuid from 'cuid';
 import Chance from 'chance';
 import Datastore from 'nedb';
 import tmp from 'tmp';
 import fs from 'fs';
 import Immutable, { Range, Map } from 'immutable';
 import PersonRepositoryService from '../PersonRepositoryService';
+import { LoggerMock } from '../../__mocks__';
 
 const chance = new Chance();
 
 describe('PersonRepositoryService', () => {
   let databaseFileName;
   let personDataStore;
+  let logger;
+  let sessionId;
   let personRepositoryService;
 
   beforeEach(() => {
     databaseFileName = tmp.fileSync().name;
     personDataStore = new Datastore(databaseFileName);
     personDataStore.loadDatabase();
-    personRepositoryService = new PersonRepositoryService({ personDataStore });
+
+    logger = new LoggerMock();
+    sessionId = cuid();
+    personRepositoryService = new PersonRepositoryService({ personDataStore, logger, sessionId });
   });
 
   afterEach(done => {
