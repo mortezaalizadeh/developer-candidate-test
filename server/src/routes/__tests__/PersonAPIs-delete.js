@@ -1,5 +1,7 @@
+import cuid from 'cuid';
 import Chance from 'chance';
 import HttpStatus from 'http-status-codes';
+import { LoggerMock } from '../../__mocks__';
 import { PersonServiceMock } from '../../business/__mocks__';
 import PersonAPIs from '../PersonAPIs';
 import HttpResponse from './HttpResponse';
@@ -9,13 +11,17 @@ const chance = new Chance();
 
 describe('PersonAPIs-delete', () => {
   let personService;
+  let logger;
+  let sessionId;
   let personAPIs;
   let request;
   let response;
 
   beforeEach(() => {
     personService = new PersonServiceMock();
-    personAPIs = new PersonAPIs({ personService });
+    logger = new LoggerMock();
+    sessionId = cuid();
+    personAPIs = new PersonAPIs({ personService, logger, sessionId });
     request = { params: { id: chance.string() } };
     response = new HttpResponse();
   });
