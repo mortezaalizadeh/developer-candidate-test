@@ -1,5 +1,7 @@
+import cuid from 'cuid';
 import Chance from 'chance';
 import { Range, Map } from 'immutable';
+import { LoggerMock } from '../../__mocks__';
 import { PersonRepositoryServiceMock } from '../../repositories/__mocks__';
 import PersonService from '../PersonService';
 import { BadArgumentError, UnknownError } from '../Errors';
@@ -9,11 +11,15 @@ const chance = new Chance();
 
 describe('PersonService-search', () => {
   let personRepositoryService;
+  let logger;
+  let sessionId;
   let personService;
 
   beforeEach(() => {
     personRepositoryService = new PersonRepositoryServiceMock();
-    personService = new PersonService({ personRepositoryService });
+    logger = new LoggerMock();
+    sessionId = cuid();
+    personService = new PersonService({ personRepositoryService, logger, sessionId });
   });
 
   describe('parameters', () => {

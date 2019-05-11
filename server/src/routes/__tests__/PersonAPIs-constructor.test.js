@@ -37,6 +37,7 @@ describe('PersonAPIs-constructor', () => {
   it('should throw exception if null sessionId is provided', () => {
     expect(() => new PersonAPIs({ personService, logger, sessionId: null })).toThrowError(new Error('sessionId is required!'));
   });
+
   it('should not throw exception if all required services are provided', () => {
     new PersonAPIs({ personService, logger, sessionId });
   });

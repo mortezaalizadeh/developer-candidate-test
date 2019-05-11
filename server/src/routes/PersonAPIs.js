@@ -26,17 +26,17 @@ class PersonAPIs {
   @POST()
   async create(request, response) {
     try {
-      this.logger.log('info', `${this.sessionId} - trying to create person...`);
-      this.logger.log('debug', `${this.sessionId} - create person request content - ${JSON.stringify(request.body)}`);
+      this.logger.log('info', `${this.sessionId} - API: trying to create person...`);
+      this.logger.log('debug', `${this.sessionId} - API: create person request content - ${JSON.stringify(request.body)}`);
 
       const result = await this.personService.create(request.body);
 
-      this.logger.log('info', `${this.sessionId} - create person succeeded`);
-      this.logger.log('debug', `${this.sessionId} - create person result - ${JSON.stringify(result)}`);
+      this.logger.log('info', `${this.sessionId} - API: create person succeeded`);
+      this.logger.log('debug', `${this.sessionId} - API: create person result - ${JSON.stringify(result)}`);
 
       response.status(HttpStatus.OK).send(result);
     } catch (ex) {
-      this.logger.log('error', `${this.sessionId} - create person failed ${ex.message}\n${ex.stack}`);
+      this.logger.log('error', `${this.sessionId} - API: create person failed ${ex.message}\n${ex.stack}`);
 
       if (ex.name === 'BadArgumentError') {
         response.status(HttpStatus.BAD_REQUEST).send();
@@ -52,16 +52,16 @@ class PersonAPIs {
   @GET()
   async read(request, response) {
     try {
-      this.logger.log('info', `${this.sessionId} - trying to read person with id: ${request.params.id}...`);
+      this.logger.log('info', `${this.sessionId} - API: trying to read person with id: ${request.params.id}...`);
 
       const result = await this.personService.read(request.params.id);
 
-      this.logger.log('info', `${this.sessionId} - read person with id: ${request.params.id} succeeded`);
-      this.logger.log('debug', `${this.sessionId} - read person result - ${JSON.stringify(result)}`);
+      this.logger.log('info', `${this.sessionId} - API: read person with id: ${request.params.id} succeeded`);
+      this.logger.log('debug', `${this.sessionId} - API: read person result - ${JSON.stringify(result)}`);
 
       response.status(HttpStatus.OK).send(result);
     } catch (ex) {
-      this.logger.log('error', `${this.sessionId} - read person failed ${ex.message}\n${ex.stack}`);
+      this.logger.log('error', `${this.sessionId} - API: read person failed ${ex.message}\n${ex.stack}`);
 
       if (ex.name === 'BadArgumentError') {
         response.status(HttpStatus.BAD_REQUEST).send();
@@ -77,15 +77,15 @@ class PersonAPIs {
   @DELETE()
   async delete(request, response) {
     try {
-      this.logger.log('info', `${this.sessionId} - trying to delete person with id: ${request.params.id}...`);
+      this.logger.log('info', `${this.sessionId} - API: trying to delete person with id: ${request.params.id}...`);
 
       await this.personService.delete(request.params.id);
 
-      this.logger.log('info', `${this.sessionId} - delete person with id: ${request.params.id} succeeded`);
+      this.logger.log('info', `${this.sessionId} - API: delete person with id: ${request.params.id} succeeded`);
 
       response.status(HttpStatus.OK).send();
     } catch (ex) {
-      this.logger.log('error', `${this.sessionId} - create person failed ${ex.message}\n${ex.stack}`);
+      this.logger.log('error', `${this.sessionId} - API: delete person failed ${ex.message}\n${ex.stack}`);
 
       if (ex.name === 'BadArgumentError') {
         response.status(HttpStatus.BAD_REQUEST).send();
@@ -102,7 +102,7 @@ class PersonAPIs {
     try {
       let criteria = {};
 
-      this.logger.log('info', `${this.sessionId} - trying to search for persons with criteria: ${JSON.stringify(request.query)}...`);
+      this.logger.log('info', `${this.sessionId} - API: trying to search for persons with criteria: ${JSON.stringify(request.query)}...`);
 
       if (request.query) {
         if (request.query.gender) {
@@ -136,12 +136,12 @@ class PersonAPIs {
 
       const result = await this.personService.search(criteria);
 
-      this.logger.log('info', `${this.sessionId} - search for persons with query: ${JSON.stringify(request.query)} succeeded`);
-      this.logger.log('debug', `${this.sessionId} - search for persons result - ${JSON.stringify(result)}`);
+      this.logger.log('info', `${this.sessionId} - API: search for persons with query: ${JSON.stringify(request.query)} succeeded`);
+      this.logger.log('debug', `${this.sessionId} - API: search for persons result - ${JSON.stringify(result)}`);
 
       response.status(HttpStatus.OK).send(result);
     } catch (ex) {
-      this.logger.log('error', `${this.sessionId} - create person failed ${ex.message}\n${ex.stack}`);
+      this.logger.log('error', `${this.sessionId} - API: delete person failed ${ex.message}\n${ex.stack}`);
 
       if (ex.name === 'BadArgumentError') {
         response.status(HttpStatus.BAD_REQUEST).send();

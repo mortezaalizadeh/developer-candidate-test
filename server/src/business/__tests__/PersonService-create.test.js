@@ -1,19 +1,25 @@
 import Chance from 'chance';
+import cuid from 'cuid';
 import { PersonRepositoryServiceMock } from '../../repositories/__mocks__';
 import PersonService from '../PersonService';
 import { BadArgumentError, AlreadyExistsError, UnknownError } from '../Errors';
 import { AlreadyExistsError as RepositoryAlreadyExistsError, UnknownError as RepositoryUnknownError } from '../../repositories';
+import { LoggerMock } from '../../__mocks__';
 
 const chance = new Chance();
 
 describe('PersonService-create', () => {
   let personRepositoryService;
+  let logger;
+  let sessionId;
   let personService;
   let info;
 
   beforeEach(() => {
     personRepositoryService = new PersonRepositoryServiceMock();
-    personService = new PersonService({ personRepositoryService });
+    logger = new LoggerMock();
+    sessionId = cuid();
+    personService = new PersonService({ personRepositoryService, logger, sessionId });
     info = { name: chance.string(), age: chance.integer({ min: 0 }), gender: chance.string() };
   });
 
