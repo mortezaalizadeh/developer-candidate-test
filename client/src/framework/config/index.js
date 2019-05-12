@@ -1,0 +1,5 @@
+const config = {
+  apiServerEndpoint: 'http://localhost:3001',
+};
+
+export default config;
