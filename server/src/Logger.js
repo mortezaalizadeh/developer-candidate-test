@@ -4,7 +4,7 @@ import { createLogger, format, transports } from 'winston';
 const errorLogFileFullPath = process.env.ERROR_LOG_FILE_FULLPATH ? process.env.ERROR_LOG_FILE_FULLPATH : Path.join(__dirname, '..', 'error.log');
 const combinedLogFileFullPath = process.env.COMBINED_LOG_FILE_FULLPATH
   ? process.env.COMBINED_LOG_FILE_FULLPATH
-  : Path.join(__dirname, '..', 'combined.log');
+  : Path.join(__dirname, '..', 'all.log');
 
 // the desired log level, if not set by the env variable, the default value will be `info`
 const logLevel = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'info';
