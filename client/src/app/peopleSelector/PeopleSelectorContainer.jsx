@@ -3,41 +3,44 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Map } from 'immutable';
-import { withRouter } from 'react-router-dom';
 import PeopleSelector from './PeopleSelector';
 import { PersonResultContainer } from '../personResult';
 import * as personApiActions from '../../api/person/Actions';
 
 class PeopleSelectorContainer extends Component {
   componentWillMount() {
-    const { history, personApiActions } = this.props;
-
-    personApiActions.searchPersons(Map());
-
-    this.unlisten = history.listen(() => {
-      personApiActions.searchPersons(Map());
-    });
-  }
-  componentWillUnmount() {
-    this.unlisten();
-  }
-
-  render = () => {
     const { selectedFilter } = this.props;
 
-    return (
-      <div>
-        <PeopleSelector selectedFilter={selectedFilter} />
-        <PersonResultContainer />
-      </div>
-    );
+    this.searchPersons(selectedFilter);
+  }
+
+  searchPersons = selectedFilter => {
+    const { personApiActions } = this.props;
+
+    if (selectedFilter === 'everybody') {
+      personApiActions.searchPersons(Map());
+    } else if (selectedFilter === 'male') {
+      personApiActions.searchPersons(Map({ criteria: Map({ gender: 'male' }) }));
+    } else if (selectedFilter === 'female') {
+      personApiActions.searchPersons(Map({ criteria: Map({ gender: 'female' }) }));
+    } else if (selectedFilter === 'over30') {
+      personApiActions.searchPersons(Map({ criteria: Map({ age_gte: 30 }) }));
+    } else if (selectedFilter === 'under30') {
+      personApiActions.searchPersons(Map({ criteria: Map({ age_lt: 30 }) }));
+    }
   };
+
+  render = () => (
+    <div>
+      <PeopleSelector />
+      <PersonResultContainer />
+    </div>
+  );
 }
 
 PeopleSelectorContainer.propTypes = {
   personApiActions: PropTypes.object.isRequired,
   selectedFilter: PropTypes.string.isRequired,
-  history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = () => ({});
@@ -46,9 +49,7 @@ const mapDispatchToProps = dispatch => ({
   personApiActions: bindActionCreators(personApiActions, dispatch),
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(PeopleSelectorContainer),
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PeopleSelectorContainer);

@@ -4,13 +4,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const columns = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-  { id: 'age', numeric: true, disablePadding: false, label: 'Age' },
   { id: 'gender', numeric: true, disablePadding: false, label: 'Gender' },
+  { id: 'age', numeric: true, disablePadding: false, label: 'Age' },
 ];
 
 class PersonResultTableHead extends Component {
@@ -21,14 +20,12 @@ class PersonResultTableHead extends Component {
   };
 
   render = () => {
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+    const { order, orderBy } = this.props;
 
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox">
-            <Checkbox indeterminate={numSelected > 0 && numSelected < rowCount} checked={numSelected === rowCount} onChange={onSelectAllClick} />
-          </TableCell>
+          <TableCell padding="checkbox" />
           {columns.map(
             column => (
               <TableCell
@@ -52,12 +49,9 @@ class PersonResultTableHead extends Component {
 }
 
 PersonResultTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
 };
 
 export default PersonResultTableHead;

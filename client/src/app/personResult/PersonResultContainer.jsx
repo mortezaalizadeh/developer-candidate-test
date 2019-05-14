@@ -43,25 +43,14 @@ class PersonResultContainer extends Component {
   };
 
   handleRequestSort = (event, property) => {
-    const orderBy = property;
-    let order = 'desc';
     const { state } = this;
+    let order = 'desc';
 
     if (state.orderBy === property && state.order === 'desc') {
       order = 'asc';
     }
 
-    this.setState({ order, orderBy });
-  };
-
-  handleSelectAllClick = event => {
-    if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
-
-      return;
-    }
-
-    this.setState({ selected: [] });
+    this.setState({ order, orderBy: property });
   };
 
   handleClick = (event, id) => {
@@ -97,21 +86,20 @@ class PersonResultContainer extends Component {
   };
 
   render = () => {
-    const { order, orderBy, selected, rowsPerPage, page } = this.state;
+    const { order, orderBy, rowsPerPage, page } = this.state;
     const { unorderedPersons } = this.props;
     const persons = stableSort(unorderedPersons, getSorting(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, persons.length - page * rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, unorderedPersons.length - page * rowsPerPage);
 
     return (
       <PersonResult
         order={order}
         orderBy={orderBy}
-        selected={selected}
         page={page}
         rowsPerPage={rowsPerPage}
+        toatlPersonCount={unorderedPersons.length}
         persons={persons}
         emptyRows={emptyRows}
-        onSelectAllClick={this.handleSelectAllClick}
         onRequestSort={this.handleRequestSort}
         onClick={this.handleClick}
         isSelected={this.isSelected}

@@ -5,15 +5,42 @@ import ActionTypes from './ActionTypes';
 import * as Actions from './Actions';
 import Config from '../../framework/config';
 
-const searchPersons = async () => {
-  return await superagent.get(Config.apiServerEndpoint + '/persons');
-};
+const searchPersons = async criteria => superagent.get(Config.apiServerEndpoint + '/persons' + (criteria ? '?' + criteria : ''));
 
 function* searchPersonsAsync(action) {
   try {
     yield put(Actions.searchPersonsInProgress(action.payload));
 
-    const result = yield call(searchPersons);
+    let criteria = '';
+    const gender = action.payload.getIn(['criteria', 'gender']);
+    const age_lt = action.payload.getIn(['criteria', 'age_lt']);
+    const age_gte = action.payload.getIn(['criteria', 'age_gte']);
+
+    if (gender) {
+      if (criteria) {
+        criteria += `&gender=${gender}`;
+      } else {
+        criteria += `gender=${gender}`;
+      }
+    }
+
+    if (age_lt) {
+      if (criteria) {
+        criteria += `&age_lt=${age_lt}`;
+      } else {
+        criteria += `age_lt=${age_lt}`;
+      }
+    }
+
+    if (age_gte) {
+      if (criteria) {
+        criteria += `&age_gte=${age_gte}`;
+      } else {
+        criteria += `age_gte=${age_gte}`;
+      }
+    }
+
+    const result = yield call(searchPersons, criteria);
 
     yield put(Actions.searchPersonsSucceeded(Map({ persons: Immutable.fromJS(result.body) })));
   } catch (exception) {

@@ -13,13 +13,12 @@ import { PersonsPropType } from './PropTypes';
 
 const PersonResult = ({
   classes,
+  toatlPersonCount,
   persons,
   order,
   orderBy,
-  selected,
   rowsPerPage,
   page,
-  onSelectAllClick,
   onRequestSort,
   onClick,
   isSelected,
@@ -31,13 +30,7 @@ const PersonResult = ({
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
         <Table className={classes.table} aria-labelledby="tableTitle">
-          <PersonResultTableHead
-            numSelected={selected.length}
-            order={order}
-            orderBy={orderBy}
-            onSelectAllClick={onSelectAllClick}
-            onRequestSort={onRequestSort}
-            rowCount={persons.length} />
+          <PersonResultTableHead order={order} orderBy={orderBy} onRequestSort={onRequestSort} />
           <TableBody>
             {persons.map(person => (
               <Person key={person._id} onClick={onClick} person={person} isSelected={isSelected(person._id)} />
@@ -49,7 +42,7 @@ const PersonResult = ({
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={persons.length}
+        count={toatlPersonCount}
         rowsPerPage={rowsPerPage}
         page={page}
         backIconButtonProps={{
@@ -70,10 +63,9 @@ PersonResult.propTypes = {
   orderBy: PropTypes.string.isRequired,
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
+  toatlPersonCount: PropTypes.number.isRequired,
   persons: PersonsPropType.isRequired,
-  selected: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   emptyRows: PropTypes.number.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   isSelected: PropTypes.func.isRequired,

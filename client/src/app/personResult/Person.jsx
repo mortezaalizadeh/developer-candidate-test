@@ -13,8 +13,8 @@ const Person = ({ onClick, isSelected, person: { _id, name, age, gender } }) => 
     <TableCell component="th" scope="row" padding="none">
       {name}
     </TableCell>
-    <TableCell align="right">{age}</TableCell>
     <TableCell align="right">{gender}</TableCell>
+    <TableCell align="right">{age}</TableCell>
   </TableRow>
 );
 
