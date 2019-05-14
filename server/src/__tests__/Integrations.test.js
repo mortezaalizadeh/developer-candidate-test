@@ -84,7 +84,6 @@ describe('Integration tests', () => {
     it('should find the person through the seach function', done => {
       request(app)
         .get('/persons?gender=' + person.gender)
-        .send(info)
         .expect(HttpStatus.OK)
         .end((err, response) => {
           if (err) {
@@ -104,21 +103,18 @@ describe('Integration tests', () => {
     it('should delete the person info', done => {
       request(app)
         .delete('/persons/' + person._id)
-        .send(info)
         .expect(HttpStatus.OK, done);
     });
 
     it('should fail to read the deleted person info', done => {
       request(app)
         .get('/persons/' + person._id)
-        .send(info)
         .expect(HttpStatus.NOT_FOUND, done);
     });
 
     it('should fail to find the person through the seach function', done => {
       request(app)
         .get('/persons?gender=' + person.gender)
-        .send(info)
         .expect(HttpStatus.OK)
         .end((err, response) => {
           if (err) {

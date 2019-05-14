@@ -1,11 +1,11 @@
-// @flow
-
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import { all } from 'redux-saga/effects';
 import getReducers from './Reducers';
+import { watchSearchPersons } from '../../api/person';
 
 const rootSagas = function* sagas() {
-  yield [];
+  yield all([watchSearchPersons()]);
 };
 
 const configureStore = initialState => {

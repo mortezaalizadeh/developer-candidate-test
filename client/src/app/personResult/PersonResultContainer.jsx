@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PersonResult from './PersonResult';
+import { PersonsPropType } from './PropTypes';
 
 const desc = (a, b, orderBy) => {
   if (b[orderBy] < a[orderBy]) {
@@ -36,17 +38,6 @@ class PersonResultContainer extends Component {
     order: 'asc',
     orderBy: 'name',
     selected: [],
-    unorderedPersons: [
-      { name: 'Morteza 1', age: 37, gender: 'male' },
-      { name: 'Morteza 2', age: 38, gender: 'male' },
-      { name: 'Morteza 3', age: 39, gender: 'male' },
-      { name: 'Morteza 4', age: 20, gender: 'female' },
-      { name: 'Morteza 5', age: 21, gender: 'female' },
-      { name: 'Morteza 6', age: 22, gender: 'female' },
-      { name: 'Morteza 7', age: 65, gender: 'male' },
-      { name: 'Morteza 8', age: 98, gender: 'male' },
-      { name: 'Morteza 9', age: 12, gender: 'male' },
-    ],
     page: 0,
     rowsPerPage: 5,
   };
@@ -106,7 +97,8 @@ class PersonResultContainer extends Component {
   };
 
   render = () => {
-    const { order, orderBy, selected, rowsPerPage, page, unorderedPersons } = this.state;
+    const { order, orderBy, selected, rowsPerPage, page } = this.state;
+    const { unorderedPersons } = this.props;
     const persons = stableSort(unorderedPersons, getSorting(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, persons.length - page * rowsPerPage);
 
@@ -129,4 +121,21 @@ class PersonResultContainer extends Component {
   };
 }
 
-export default PersonResultContainer;
+PersonResultContainer.propTypes = {
+  unorderedPersons: PersonsPropType.isRequired,
+};
+
+const mapStateToProps = state => {
+  const unorderedPersons = state.personApi.get('persons').toJS();
+
+  return {
+    unorderedPersons,
+  };
+};
+
+const mapDispatchToProps = () => ({});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PersonResultContainer);

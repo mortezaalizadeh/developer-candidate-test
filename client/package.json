@@ -70,6 +70,7 @@
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
     "regenerator-runtime": "^0.13.2",
+    "superagent": "^5.0.5",
     "typeface-roboto": "0.0.54"
   },
   "resolutions": {

@@ -1,9 +1,10 @@
 // @flow
 
 import { combineReducers } from 'redux';
+import { PersonApiReducer } from '../../api/person';
 
 export default function getReducers() {
   return combineReducers({
-    notification: null,
+    personApi: PersonApiReducer,
   });
 }
