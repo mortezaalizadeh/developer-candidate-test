@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Map } from 'immutable';
 import PersonResult from './PersonResult';
 import { PersonsPropType } from './PropTypes';
+import * as localStateActions from '../../framework/localState/Actions';
 
 const desc = (a, b, orderBy) => {
   if (b[orderBy] < a[orderBy]) {
@@ -38,7 +42,6 @@ class PersonResultContainer extends Component {
     order: 'asc',
     orderBy: 'name',
     selected: [],
-    page: 0,
     rowsPerPage: 5,
   };
 
@@ -71,8 +74,10 @@ class PersonResultContainer extends Component {
     this.setState({ selected: newSelected });
   };
 
-  handleChangePage = (event, page) => {
-    this.setState({ page });
+  handleChangePage = (event, pageNumber) => {
+    const { localStateActions } = this.props;
+
+    localStateActions.pageNumberChanged(Map({ pageNumber }));
   };
 
   handleChangeRowsPerPage = event => {
@@ -86,8 +91,8 @@ class PersonResultContainer extends Component {
   };
 
   render = () => {
-    const { order, orderBy, rowsPerPage, page } = this.state;
-    const { unorderedPersons } = this.props;
+    const { unorderedPersons, page } = this.props;
+    const { order, orderBy, rowsPerPage } = this.state;
     const persons = stableSort(unorderedPersons, getSorting(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, unorderedPersons.length - page * rowsPerPage);
 
@@ -110,18 +115,21 @@ class PersonResultContainer extends Component {
 }
 
 PersonResultContainer.propTypes = {
+  localStateActions: PropTypes.object.isRequired,
   unorderedPersons: PersonsPropType.isRequired,
+  page: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => {
-  const unorderedPersons = state.personApi.get('persons').toJS();
-
   return {
-    unorderedPersons,
+    unorderedPersons: state.personApi.get('persons').toJS(),
+    page: state.localState.get('pageNumber'),
   };
 };
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => ({
+  localStateActions: bindActionCreators(localStateActions, dispatch),
+});
 
 export default connect(
   mapStateToProps,

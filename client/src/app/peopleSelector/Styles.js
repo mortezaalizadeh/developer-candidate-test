@@ -1,5 +1,3 @@
-// @flow
-
 const styles = theme => ({
   root: {
     width: '100%',
