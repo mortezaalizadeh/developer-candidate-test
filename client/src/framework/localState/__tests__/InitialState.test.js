@@ -1,10 +1,6 @@
 import initialState from '../InitialState';
 
 describe('Local State Initial State', () => {
-  it('should set default peopleType to everybody', () => {
-    expect(initialState.get('peopleType')).toBe('everybody');
-  });
-
   it('should set default sortOrder to asc', () => {
     expect(initialState.get('sortOrder')).toBe('asc');
   });

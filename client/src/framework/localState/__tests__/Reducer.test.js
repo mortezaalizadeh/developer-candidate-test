@@ -10,20 +10,10 @@ describe('Local State Actions', () => {
 
   beforeEach(() => {
     state = Map({
-      peopleType: chance.string(),
       sortColumn: chance.string(),
       sortOrder: chance.string(),
       pageNumber: chance.integer(),
       rowsPerPage: chance.integer(),
-    });
-  });
-
-  describe('LOCAL_STATE_PEOPLE_TYPE_CHANGED', () => {
-    it('should change the peopleType property', () => {
-      const expectedValue = chance.string();
-      const newState = reducer(state, actions.peopleTypeChanged(Map({ peopleType: expectedValue })));
-
-      expect(newState.get('peopleType')).toBe(expectedValue);
     });
   });
 

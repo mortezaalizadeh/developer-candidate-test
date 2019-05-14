@@ -1,12 +1,5 @@
 import ActionTypes from './ActionTypes';
 
-export function peopleTypeChanged(payload) {
-  return {
-    type: ActionTypes.LOCAL_STATE_PEOPLE_TYPE_CHANGED,
-    payload,
-  };
-}
-
 export function sortColumnChanged(payload) {
   return {
     type: ActionTypes.LOCAL_STATE_SORT_COLUMN_CHANGED,
