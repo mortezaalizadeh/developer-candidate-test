@@ -1,3 +1,4 @@
+import { List } from 'immutable';
 import ActionTypes from './ActionTypes';
 import initialState from './InitialState';
 import Status from './Status';
@@ -15,7 +16,8 @@ export default (state = initialState, action) => {
   case ActionTypes.PERSON_API_SEARCH_PERSONS_FAILED:
     return state
       .setIn(['searchPersonsOperationsStatus', action.payload.get('operationId')], Status.FAILED)
-      .setIn(['failedOperations', action.payload.get('operationId')], action.payload);
+      .setIn(['failedOperations', action.payload.get('operationId')], action.payload)
+      .set('persons', List());
 
   case ActionTypes.PERSON_API_SEARCH_PERSONS_IN_PROGRESS:
     return state.setIn(['searchPersonsOperationsStatus', action.payload.get('operationId')], Status.IN_PROGRESS);
