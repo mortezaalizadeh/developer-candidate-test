@@ -1,6 +1,7 @@
 import Chance from 'chance';
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Map } from 'immutable';
 import PeopleSelector from '../PeopleSelector';
 import PeopleSelectorContainerComponent from '../PeopleSelectorContainerComponent';
 import { PersonResultContainer } from '../../personResult';
@@ -13,18 +14,27 @@ class HistoryMock {
   }
 }
 
+class PersonAPIMock {
+  constructor() {
+    this.searchPersons = jest.fn();
+  }
+}
+
 describe('PeopleSelectorContainerComponent', () => {
   let selectedFilter;
   let component;
   let history;
+  let personApi;
 
   beforeEach(() => {
     selectedFilter = chance.string();
     history = new HistoryMock();
+    personApi = new PersonAPIMock();
 
     const injectedProps = {
       selectedFilter,
       history,
+      personApiActions: personApi,
     };
 
     component = shallow(<PeopleSelectorContainerComponent {...injectedProps} />);
@@ -86,5 +96,65 @@ describe('PeopleSelectorContainerComponent', () => {
 
     expect(history.push.mock.calls).toHaveLength(1);
     expect(history.push.mock.calls[0][0]).toBe('/under30');
+  });
+
+  it('should dispatch searchPersons message to read everybody', () => {
+    const personApi = new PersonAPIMock();
+    const injectedProps = {
+      selectedFilter: 'everybody',
+      personApiActions: personApi,
+    };
+
+    shallow(<PeopleSelectorContainerComponent {...injectedProps} />);
+    expect(personApi.searchPersons.mock.calls).toHaveLength(1);
+    expect(personApi.searchPersons.mock.calls[0][0]).toBe(Map());
+  });
+
+  it('should dispatch searchPersons message to read male', () => {
+    const personApi = new PersonAPIMock();
+    const injectedProps = {
+      selectedFilter: 'male',
+      personApiActions: personApi,
+    };
+
+    shallow(<PeopleSelectorContainerComponent {...injectedProps} />);
+    expect(personApi.searchPersons.mock.calls).toHaveLength(1);
+    expect(personApi.searchPersons.mock.calls[0][0].getIn(['criteria', 'gender'])).toBe('male');
+  });
+
+  it('should dispatch searchPersons message to read female', () => {
+    const personApi = new PersonAPIMock();
+    const injectedProps = {
+      selectedFilter: 'female',
+      personApiActions: personApi,
+    };
+
+    shallow(<PeopleSelectorContainerComponent {...injectedProps} />);
+    expect(personApi.searchPersons.mock.calls).toHaveLength(1);
+    expect(personApi.searchPersons.mock.calls[0][0].getIn(['criteria', 'gender'])).toBe('female');
+  });
+
+  it('should dispatch searchPersons message to read over30', () => {
+    const personApi = new PersonAPIMock();
+    const injectedProps = {
+      selectedFilter: 'over30',
+      personApiActions: personApi,
+    };
+
+    shallow(<PeopleSelectorContainerComponent {...injectedProps} />);
+    expect(personApi.searchPersons.mock.calls).toHaveLength(1);
+    expect(personApi.searchPersons.mock.calls[0][0].getIn(['criteria', 'age_gte'])).toBe(30);
+  });
+
+  it('should dispatch searchPersons message to read under30', () => {
+    const personApi = new PersonAPIMock();
+    const injectedProps = {
+      selectedFilter: 'under30',
+      personApiActions: personApi,
+    };
+
+    shallow(<PeopleSelectorContainerComponent {...injectedProps} />);
+    expect(personApi.searchPersons.mock.calls).toHaveLength(1);
+    expect(personApi.searchPersons.mock.calls[0][0].getIn(['criteria', 'age_lt'])).toBe(30);
   });
 });
