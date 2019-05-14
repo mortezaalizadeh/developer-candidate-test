@@ -5,14 +5,22 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
-
-const columns = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-  { id: 'gender', numeric: true, disablePadding: false, label: 'Gender' },
-  { id: 'age', numeric: true, disablePadding: false, label: 'Age' },
-];
+import { withTranslation } from 'react-i18next';
 
 class PersonResultTableHead extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    const { t } = this.props;
+
+    this.state = {
+      columns: [
+        { id: 'name', numeric: false, disablePadding: true, label: t('columns.name') },
+        { id: 'gender', numeric: true, disablePadding: false, label: t('columns.gender') },
+        { id: 'age', numeric: true, disablePadding: false, label: t('columns.age') },
+      ],
+    };
+  }
   createSortHandler = property => event => {
     const { onRequestSort } = this.props;
 
@@ -21,6 +29,7 @@ class PersonResultTableHead extends Component {
 
   render = () => {
     const { sortOrder, sortColumn } = this.props;
+    const { columns } = this.state;
 
     return (
       <TableHead>
@@ -52,6 +61,7 @@ PersonResultTableHead.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
   sortOrder: PropTypes.string.isRequired,
   sortColumn: PropTypes.string.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default PersonResultTableHead;
+export default withTranslation()(PersonResultTableHead);

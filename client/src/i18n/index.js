@@ -16,6 +16,7 @@ i18next.init({
         delete: { button: { caption: 'Delete' } },
         selectPersonToRemoveMessage: 'Select person(s) to remove',
         selected: { label: 'selected' },
+        columns: { name: 'Name', gender: 'Gender', age: 'Age' },
       },
     },
   },
