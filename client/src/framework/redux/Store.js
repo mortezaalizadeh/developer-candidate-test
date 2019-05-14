@@ -2,10 +2,10 @@ import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
 import getReducers from './Reducers';
-import { watchSearchPersons } from '../../api/person';
+import { watchSearchPersons, watchDeletePersons } from '../../api/person';
 
 const rootSagas = function* sagas() {
-  yield all([watchSearchPersons()]);
+  yield all([watchSearchPersons(), watchDeletePersons()]);
 };
 
 const configureStore = initialState => {

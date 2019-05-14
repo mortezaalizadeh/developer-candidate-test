@@ -23,6 +23,20 @@ export default (state = initialState, action) => {
   case ActionTypes.PERSON_API_ACKNOWLEDGE_SEARCH_PERSONS_OPERATION:
     return state.deleteIn(['searchPersonsOperationsStatus', action.payload.get('operationId')]);
 
+  case ActionTypes.PERSON_API_DELETE_PERSON_SUCCEEDED:
+    return state.setIn(['deletePersonsOperationsStatus', action.payload.get('operationId')], Status.SUCCEEDED);
+
+  case ActionTypes.PERSON_API_DELETE_PERSON_FAILED:
+    return state
+      .setIn(['deletePersonsOperationsStatus', action.payload.get('operationId')], Status.FAILED)
+      .setIn(['failedOperations', action.payload.get('operationId')], action.payload);
+
+  case ActionTypes.PERSON_API_DELETE_PERSON_IN_PROGRESS:
+    return state.setIn(['deletePersonsOperationsStatus', action.payload.get('operationId')], Status.IN_PROGRESS);
+
+  case ActionTypes.PERSON_API_ACKNOWLEDGE_DELETE_PERSON_OPERATION:
+    return state.deleteIn(['deletePersonsOperationsStatus', action.payload.get('operationId')]);
+
   default:
     return state;
   }
