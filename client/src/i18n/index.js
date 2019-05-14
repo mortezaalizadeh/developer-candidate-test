@@ -8,7 +8,6 @@ i18next.init({
   resources: {
     en: {
       translation: {
-        people: { label: 'People' },
         everybody: { label: 'Everybody' },
         male: { label: 'Male' },
         female: { label: 'Female' },

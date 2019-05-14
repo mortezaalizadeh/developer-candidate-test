@@ -3,38 +3,29 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { withTranslation } from 'react-i18next';
 import Styles from './Styles';
 
-const styles = {
-  activeLink: {
-    color: 'blue',
-  },
-};
-
-const PeopleSelector = ({ classes }) => {
-  const { t } = useTranslation();
-
+const PeopleSelector = ({ classes, t, selectedFilter, onSelectorSelected }) => {
   return (
     <Paper className={classes.root}>
-      <Typography className={classes.content}>{t('people.label')}</Typography>
       <Typography>
-        <NavLink to="/everybody" className={classes.link} activeStyle={styles.activeLink}>
+        <Button onClick={() => onSelectorSelected('everybody')} color={selectedFilter === 'everybody' ? 'primary' : 'default'}>
           {t('everybody.label')}
-        </NavLink>
-        <NavLink to="/male" className={classes.link} activeStyle={styles.activeLink}>
+        </Button>
+        <Button onClick={() => onSelectorSelected('male')} color={selectedFilter === 'male' ? 'primary' : 'default'}>
           {t('male.label')}
-        </NavLink>
-        <NavLink to="/female" className={classes.link} activeStyle={styles.activeLink}>
+        </Button>
+        <Button onClick={() => onSelectorSelected('female')} color={selectedFilter === 'female' ? 'primary' : 'default'}>
           {t('female.label')}
-        </NavLink>
-        <NavLink to="/over30" className={classes.link} activeStyle={styles.activeLink}>
+        </Button>
+        <Button onClick={() => onSelectorSelected('over30')} color={selectedFilter === 'over30' ? 'primary' : 'default'}>
           {t('over30.label')}
-        </NavLink>
-        <NavLink to="/under30" className={classes.link} activeStyle={styles.activeLink}>
+        </Button>
+        <Button onClick={() => onSelectorSelected('under30')} color={selectedFilter === 'under30' ? 'primary' : 'default'}>
           {t('under30.label')}
-        </NavLink>
+        </Button>
       </Typography>
     </Paper>
   );
@@ -42,6 +33,9 @@ const PeopleSelector = ({ classes }) => {
 
 PeopleSelector.propTypes = {
   classes: PropTypes.object.isRequired,
+  t: PropTypes.func.isRequired,
+  selectedFilter: PropTypes.string.isRequired,
+  onSelectorSelected: PropTypes.func.isRequired,
 };
 
-export default withStyles(Styles)(PeopleSelector);
+export default withStyles(Styles)(withTranslation()(PeopleSelector));
