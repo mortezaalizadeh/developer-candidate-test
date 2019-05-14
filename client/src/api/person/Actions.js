@@ -43,35 +43,35 @@ export function acknowledgeSearchPersonsStatus(payload) {
   };
 }
 
-export function deletePersons(payload) {
+export function deletePerson(payload) {
   return {
     type: ActionTypes.PERSON_API_DELETE_PERSON,
     payload: payload.set('operationId', cuid()),
   };
 }
 
-export function deletePersonsSucceeded(payload) {
+export function deletePersonSucceeded(payload) {
   return {
     type: ActionTypes.PERSON_API_DELETE_PERSON_SUCCEEDED,
     payload,
   };
 }
 
-export function deletePersonsFailed(payload) {
+export function deletePersonFailed(payload) {
   return {
     type: ActionTypes.PERSON_API_DELETE_PERSON_FAILED,
     payload,
   };
 }
 
-export function deletePersonsInProgress(payload) {
+export function deletePersonInProgress(payload) {
   return {
     type: ActionTypes.PERSON_API_DELETE_PERSON_IN_PROGRESS,
     payload,
   };
 }
 
-export function acknowledgeDeletePersonsStatus(payload) {
+export function acknowledgeDeletePersonStatus(payload) {
   return {
     type: ActionTypes.PERSON_API_ACKNOWLEDGE_DELETE_PERSON_OPERATION,
     payload,

@@ -4,5 +4,5 @@ export default Map({
   failedOperations: Map(),
   persons: List(),
   searchPersonsOperationsStatus: Map(),
-  deletePersonsOperationsStatus: Map(),
+  deletePersonOperationsStatus: Map(),
 });

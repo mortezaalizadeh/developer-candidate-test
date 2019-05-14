@@ -96,7 +96,7 @@ class PersonResultContainer extends Component {
     const { personApiActions } = this.props;
     const { selected } = this.state;
 
-    selected.forEach(id => personApiActions.deletePersons(Map({ id })));
+    selected.forEach(id => personApiActions.deletePerson(Map({ id })));
     this.setState({ selected: [] });
   };
 

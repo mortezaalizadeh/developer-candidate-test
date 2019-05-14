@@ -2,4 +2,4 @@ export ActionTypes from './ActionTypes';
 export PersonApiReducer from './Reducer';
 export Status from './Status';
 export watchSearchPersons from './SearchPersons';
-export watchDeletePersons from './DeletePerson';
+export watchDeletePerson from './DeletePerson';
