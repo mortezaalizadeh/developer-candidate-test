@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<div
+  className="MuiToolbar-root-9 MuiToolbar-regular-11 MuiToolbar-gutters-10 Component-toolbarRoot-4 Component-toolbarHighlight-5"
+>
+  <div
+    className="Component-toolbarTitle-8"
+  >
+    <h6
+      className="MuiTypography-root-13 MuiTypography-subtitle1-31 MuiTypography-colorInherit-42"
+    >
+      10 selected.label
+    </h6>
+  </div>
+  <div
+    className="Component-toolbarSpacer-6"
+  />
+  <div
+    className="Component-toolbarActions-7"
+  >
+    <button
+      aria-describedby={null}
+      aria-label="Delete"
+      className="MuiButtonBase-root-63 MuiIconButton-root-57"
+      disabled={false}
+      onBlur={[Function]}
+      onContextMenu={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseOver={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      title="delete.button.caption"
+      type="button"
+    >
+      <span
+        className="MuiIconButton-label-62"
+      >
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root-66"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+          />
+          <path
+            d="M0 0h24v24H0z"
+            fill="none"
+          />
+        </svg>
+      </span>
+      <span
+        className="MuiTouchRipple-root-75"
+      />
+    </button>
+  </div>
+</div>
+`;
