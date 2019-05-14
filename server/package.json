@@ -9,8 +9,8 @@
     "build": "babel src --out-dir dist",
     "lint": "eslint --ext .jsx --ext .js src",
     "fixlint": "eslint --fix --ext .jsx --ext .js src",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --coverage",
+    "test:watch": "jest --watchAll --coverage",
     "precommit": "lint-staged"
   },
   "author": "Morteza Alizadeh <morteza.alizadeh@gmail.com>",

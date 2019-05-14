@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { withStyles, MuiThemeProvider } from '@material-ui/core';
