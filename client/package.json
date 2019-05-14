@@ -14,7 +14,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,css,md}": [
-      "prettier --write --single-quote true --trailing-comma all --print-width 150",
+      "prettier --write",
       "npm run fixlint",
       "git add"
     ]
@@ -50,22 +50,24 @@
   "dependencies": {
     "@babel/plugin-transform-react-constant-elements": "7.2.0",
     "@babel/plugin-transform-react-inline-elements": "7.2.0",
+    "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
     "babel-plugin-transform-react-pure-class-to-function": "1.0.1",
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
+    "cuid": "^2.1.6",
     "i18next": "^15.1.0",
     "immutable": "^4.0.0-rc.12",
     "lodash": "4.17.11",
-    "material-ui": "^0.20.2",
-    "material-ui-icons": "^1.0.0-beta.36",
     "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-hot-loader": "4.8.4",
     "react-i18next": "^10.9.0",
+    "react-jss": "^8.6.1",
     "react-redux": "^7.0.3",
+    "react-router-dom": "^5.0.0",
+    "recompose": "^0.30.0",
     "redux": "^4.0.1",
-    "redux-form": "^8.2.0",
-    "redux-form-material-ui": "^4.3.4",
     "redux-saga": "^1.0.2",
     "regenerator-runtime": "^0.13.2",
     "typeface-roboto": "0.0.54"

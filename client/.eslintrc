@@ -1,8 +1,12 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["react", "jest", "prettier"],
-  "extends": ["airbnb", "plugin:prettier/recommended", "prettier/react"],
-  "globals": {
+ "plugins": [
+    "react",
+    "import",
+    "jest"
+  ],
+  "extends": ["airbnb", "eslint:recommended", "plugin:react/recommended"],
+"globals": {
     "React": true,
     "document": true,
     "window": true,
@@ -42,6 +46,7 @@
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error",
     "react/require-default-props": 0,
+    "react/forbid-prop-types": 0,
     "jsx-a11y/href-no-hash": "off",
     "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }],
     "react/jsx-boolean-value": ["warn", "never"],

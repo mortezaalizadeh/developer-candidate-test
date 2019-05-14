@@ -7,10 +7,14 @@ i18next.init({
   lng: 'en',
   resources: {
     en: {
-      translation: {},
-    },
-    zh: {
-      translation: {},
+      translation: {
+        people: { label: 'People' },
+        everybody: { label: 'Everybody' },
+        male: { label: 'Male' },
+        female: { label: 'Female' },
+        over30: { label: 'Over 30' },
+        under30: { label: 'Under 30' },
+      },
     },
   },
 });

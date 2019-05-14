@@ -1,0 +1,1 @@
+export PeopleSelectorContainer from './PeopleSelectorContainer';

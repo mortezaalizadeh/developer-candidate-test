@@ -2,9 +2,12 @@
 
 import { create, SheetsRegistry } from 'jss';
 import preset from 'jss-preset-default';
-import { createMuiTheme, createGenerateClassName } from 'material-ui/styles';
+import { createMuiTheme, createGenerateClassName } from '@material-ui/core';
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     type: 'light',
   },
