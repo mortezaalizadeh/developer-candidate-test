@@ -16,7 +16,7 @@ function* deletePersonsAsync(action) {
     yield put(Actions.deletePersonsSucceeded(Map({ persons: Immutable.fromJS(result.body) })));
 
     const state = yield select();
-    const { peopleType } = state.localState;
+    const peopleType = state.localState.get('peopleType');
 
     if (peopleType === 'everybody') {
       yield put(Actions.searchPersons(Map()));

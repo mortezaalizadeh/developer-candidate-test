@@ -9,7 +9,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Styles from './Styles';
 
-const PersonResultToolbar = ({ classes, numSelected }) => (
+const PersonResultToolbar = ({ classes, numSelected, onDeleteButtonClicked }) => (
   <Toolbar
     className={classNames(classes.toolbarRoot, {
       [classes.toolbarHighlight]: numSelected > 0,
@@ -29,8 +29,8 @@ const PersonResultToolbar = ({ classes, numSelected }) => (
     <div className={classes.toolbarActions}>
       {numSelected > 0 && (
         <Tooltip title="Delete">
-          <IconButton aria-label="Delete">
-            <DeleteIcon disabled />
+          <IconButton aria-label="Delete" onClick={onDeleteButtonClicked}>
+            <DeleteIcon />
           </IconButton>
         </Tooltip>
       )}
@@ -41,6 +41,7 @@ const PersonResultToolbar = ({ classes, numSelected }) => (
 PersonResultToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
+  onDeleteButtonClicked: PropTypes.func.isRequired,
 };
 
 export default withStyles(Styles)(PersonResultToolbar);

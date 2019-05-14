@@ -27,10 +27,11 @@ const PersonResult = ({
   onChangeRowsPerPage,
   emptyRows,
   numSelected,
+  onDeleteButtonClicked,
 }) => {
   return (
     <Paper className={classes.root}>
-      <PersonResultToolbar numSelected={numSelected} />
+      <PersonResultToolbar numSelected={numSelected} onDeleteButtonClicked={onDeleteButtonClicked} />
       <div className={classes.tableWrapper}>
         <Table className={classes.table} aria-labelledby="tableTitle">
           <PersonResultTableHead sortOrder={sortOrder} sortColumn={sortColumn} onRequestSort={onRequestSort} />
@@ -75,6 +76,7 @@ PersonResult.propTypes = {
   isSelected: PropTypes.func.isRequired,
   onChangePage: PropTypes.func.isRequired,
   onChangeRowsPerPage: PropTypes.func.isRequired,
+  onDeleteButtonClicked: PropTypes.func.isRequired,
 };
 
 export default withStyles(Styles)(PersonResult);

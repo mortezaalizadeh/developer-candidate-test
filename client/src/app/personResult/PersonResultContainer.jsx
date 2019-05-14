@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Map } from 'immutable';
 import PersonResult from './PersonResult';
 import { PersonsPropType } from './PropTypes';
+import * as personApiActions from '../../api/person/Actions';
 import * as localStateActions from '../../framework/localState/Actions';
 
 class PersonResultContainer extends Component {
@@ -91,6 +92,14 @@ class PersonResultContainer extends Component {
     return state.selected.indexOf(id) !== -1;
   };
 
+  handleDeleteButtonClicked = () => {
+    const { personApiActions } = this.props;
+    const { selected } = this.state;
+
+    selected.forEach(id => personApiActions.deletePersons(Map({ id })));
+    this.setState({ selected: [] });
+  };
+
   render = () => {
     const { selected } = this.state;
     const { unorderedPersons, page, rowsPerPage, sortOrder, sortColumn } = this.props;
@@ -114,12 +123,14 @@ class PersonResultContainer extends Component {
         onRequestSort={this.handleRequestSort}
         onClick={this.handleClick}
         onChangePage={this.handleChangePage}
-        onChangeRowsPerPage={this.handleChangeRowsPerPage} />
+        onChangeRowsPerPage={this.handleChangeRowsPerPage}
+        onDeleteButtonClicked={this.handleDeleteButtonClicked} />
     );
   };
 }
 
 PersonResultContainer.propTypes = {
+  personApiActions: PropTypes.object.isRequired,
   localStateActions: PropTypes.object.isRequired,
   unorderedPersons: PersonsPropType.isRequired,
   sortOrder: PropTypes.string.isRequired,
@@ -139,6 +150,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
+  personApiActions: bindActionCreators(personApiActions, dispatch),
   localStateActions: bindActionCreators(localStateActions, dispatch),
 });
 
