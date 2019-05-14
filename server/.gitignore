@@ -58,5 +58,3 @@ fastlane/screenshots
 package-lock.json
 newrelic_agent.log
 
-person.db
-

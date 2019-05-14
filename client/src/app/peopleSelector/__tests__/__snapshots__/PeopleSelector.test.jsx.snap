@@ -145,3 +145,149 @@ exports[`renders correctly when there are no items 1`] = `
   </p>
 </div>
 `;
+
+exports[`should render correctly 1`] = `
+<div
+  className="MuiPaper-root-4 MuiPaper-elevation2-8 MuiPaper-rounded-5 Component-root-1"
+>
+  <p
+    className="MuiTypography-root-31 MuiTypography-body1-40"
+  >
+    <button
+      className="MuiButtonBase-root-93 MuiButton-root-67 MuiButton-text-69 MuiButton-flat-72"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-68"
+      >
+        everybody.label
+      </span>
+      <span
+        className="MuiTouchRipple-root-96"
+      />
+    </button>
+    <button
+      className="MuiButtonBase-root-93 MuiButton-root-67 MuiButton-text-69 MuiButton-flat-72"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-68"
+      >
+        male.label
+      </span>
+      <span
+        className="MuiTouchRipple-root-96"
+      />
+    </button>
+    <button
+      className="MuiButtonBase-root-93 MuiButton-root-67 MuiButton-text-69 MuiButton-flat-72"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-68"
+      >
+        female.label
+      </span>
+      <span
+        className="MuiTouchRipple-root-96"
+      />
+    </button>
+    <button
+      className="MuiButtonBase-root-93 MuiButton-root-67 MuiButton-text-69 MuiButton-flat-72"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-68"
+      >
+        over30.label
+      </span>
+      <span
+        className="MuiTouchRipple-root-96"
+      />
+    </button>
+    <button
+      className="MuiButtonBase-root-93 MuiButton-root-67 MuiButton-text-69 MuiButton-flat-72"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-68"
+      >
+        under30.label
+      </span>
+      <span
+        className="MuiTouchRipple-root-96"
+      />
+    </button>
+  </p>
+</div>
+`;
