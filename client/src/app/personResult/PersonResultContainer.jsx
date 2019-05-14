@@ -88,10 +88,11 @@ class PersonResultContainer extends Component {
   isSelected = id => {
     const { state } = this;
 
-    state.selected.indexOf(id) !== -1;
+    return state.selected.indexOf(id) !== -1;
   };
 
   render = () => {
+    const { selected } = this.state;
     const { unorderedPersons, page, rowsPerPage, sortOrder, sortColumn } = this.props;
     const persons = this.stableSort(unorderedPersons, this.getSorting(sortOrder, sortColumn)).slice(
       page * rowsPerPage,
@@ -108,9 +109,10 @@ class PersonResultContainer extends Component {
         toatlPersonCount={unorderedPersons.length}
         persons={persons}
         emptyRows={emptyRows}
+        isSelected={this.isSelected}
+        numSelected={selected.length}
         onRequestSort={this.handleRequestSort}
         onClick={this.handleClick}
-        isSelected={this.isSelected}
         onChangePage={this.handleChangePage}
         onChangeRowsPerPage={this.handleChangeRowsPerPage} />
     );

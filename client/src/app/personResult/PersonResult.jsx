@@ -9,6 +9,7 @@ import Person from './Person';
 import PersonResultTableHead from './PersonResultTableHead';
 import EmptyPersonRow from './EmptyPersonRow';
 import Styles from './Styles';
+import PersonResultToolbar from './PersonResultToolbar';
 import { PersonsPropType } from './PropTypes';
 
 const PersonResult = ({
@@ -25,9 +26,11 @@ const PersonResult = ({
   onChangePage,
   onChangeRowsPerPage,
   emptyRows,
+  numSelected,
 }) => {
   return (
     <Paper className={classes.root}>
+      <PersonResultToolbar numSelected={numSelected} />
       <div className={classes.tableWrapper}>
         <Table className={classes.table} aria-labelledby="tableTitle">
           <PersonResultTableHead sortOrder={sortOrder} sortColumn={sortColumn} onRequestSort={onRequestSort} />
@@ -66,6 +69,7 @@ PersonResult.propTypes = {
   toatlPersonCount: PropTypes.number.isRequired,
   persons: PersonsPropType.isRequired,
   emptyRows: PropTypes.number.isRequired,
+  numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   isSelected: PropTypes.func.isRequired,
