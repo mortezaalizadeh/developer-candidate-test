@@ -111,7 +111,7 @@ class PersonResultContainerComponent extends Component {
         sortColumn={sortColumn}
         page={page}
         rowsPerPage={rowsPerPage}
-        toatlPersonCount={unorderedPersons.length}
+        totalPersonCount={unorderedPersons.length}
         persons={persons}
         emptyRows={emptyRows}
         isSelected={this.isSelected}

@@ -14,7 +14,7 @@ import { PersonsPropType } from './PropTypes';
 
 const PersonResult = ({
   classes,
-  toatlPersonCount,
+  totalPersonCount,
   persons,
   sortOrder,
   sortColumn,
@@ -46,7 +46,7 @@ const PersonResult = ({
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={toatlPersonCount}
+        count={totalPersonCount}
         rowsPerPage={rowsPerPage}
         page={page}
         backIconButtonProps={{
@@ -67,7 +67,7 @@ PersonResult.propTypes = {
   sortColumn: PropTypes.string.isRequired,
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
-  toatlPersonCount: PropTypes.number.isRequired,
+  totalPersonCount: PropTypes.number.isRequired,
   persons: PersonsPropType.isRequired,
   emptyRows: PropTypes.number.isRequired,
   numSelected: PropTypes.number.isRequired,
