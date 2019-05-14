@@ -3,6 +3,9 @@ import initialState from './InitialState';
 
 export default (state = initialState, action) => {
   switch (action.type) {
+  case ActionTypes.LOCAL_STATE_PEOPLE_TYPE_CHANGED:
+    return state.set('peopleType', action.payload.get('peopleType'));
+
   case ActionTypes.LOCAL_STATE_SORT_COLUMN_CHANGED:
     return state.set('sortColumn', action.payload.get('column'));
 

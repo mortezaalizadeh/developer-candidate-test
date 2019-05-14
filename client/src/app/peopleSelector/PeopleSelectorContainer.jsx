@@ -6,10 +6,13 @@ import { Map } from 'immutable';
 import PeopleSelector from './PeopleSelector';
 import { PersonResultContainer } from '../personResult';
 import * as personApiActions from '../../api/person/Actions';
+import * as localStateActions from '../../framework/localState/Actions';
 
 class PeopleSelectorContainer extends Component {
   componentWillMount() {
-    const { selectedFilter } = this.props;
+    const { selectedFilter, localStateActions } = this.props;
+
+    localStateActions.peopleTypeChanged(Map({ peopleType: selectedFilter }));
 
     this.searchPersons(selectedFilter);
   }
@@ -40,6 +43,7 @@ class PeopleSelectorContainer extends Component {
 
 PeopleSelectorContainer.propTypes = {
   personApiActions: PropTypes.object.isRequired,
+  localStateActions: PropTypes.object.isRequired,
   selectedFilter: PropTypes.string.isRequired,
 };
 
@@ -47,6 +51,7 @@ const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   personApiActions: bindActionCreators(personApiActions, dispatch),
+  localStateActions: bindActionCreators(localStateActions, dispatch),
 });
 
 export default connect(
