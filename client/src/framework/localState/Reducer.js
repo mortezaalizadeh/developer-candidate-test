@@ -12,6 +12,9 @@ export default (state = initialState, action) => {
   case ActionTypes.LOCAL_STATE_PAGE_NUMBER_CHANGED:
     return state.set('pageNumber', action.payload.get('pageNumber'));
 
+  case ActionTypes.LOCAL_STATE_ROWS_PER_PAGE_CHANGED:
+    return state.set('rowsPerPage', action.payload.get('rowsPerPage'));
+
   default:
     return state;
   }

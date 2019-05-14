@@ -20,3 +20,10 @@ export function pageNumberChanged(payload) {
     payload,
   };
 }
+
+export function rowsPerPageChanged(payload) {
+  return {
+    type: ActionTypes.LOCAL_STATE_ROWS_PER_PAGE_CHANGED,
+    payload,
+  };
+}

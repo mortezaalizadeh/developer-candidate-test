@@ -42,7 +42,6 @@ class PersonResultContainer extends Component {
     order: 'asc',
     orderBy: 'name',
     selected: [],
-    rowsPerPage: 5,
   };
 
   handleRequestSort = (event, property) => {
@@ -81,7 +80,9 @@ class PersonResultContainer extends Component {
   };
 
   handleChangeRowsPerPage = event => {
-    this.setState({ rowsPerPage: event.target.value });
+    const { localStateActions } = this.props;
+
+    localStateActions.rowsPerPageChanged(Map({ rowsPerPage: event.target.value }));
   };
 
   isSelected = id => {
@@ -91,8 +92,8 @@ class PersonResultContainer extends Component {
   };
 
   render = () => {
-    const { unorderedPersons, page } = this.props;
-    const { order, orderBy, rowsPerPage } = this.state;
+    const { unorderedPersons, page, rowsPerPage } = this.props;
+    const { order, orderBy } = this.state;
     const persons = stableSort(unorderedPersons, getSorting(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, unorderedPersons.length - page * rowsPerPage);
 
@@ -118,12 +119,14 @@ PersonResultContainer.propTypes = {
   localStateActions: PropTypes.object.isRequired,
   unorderedPersons: PersonsPropType.isRequired,
   page: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => {
   return {
     unorderedPersons: state.personApi.get('persons').toJS(),
     page: state.localState.get('pageNumber'),
+    rowsPerPage: state.localState.get('rowsPerPage'),
   };
 };
 
