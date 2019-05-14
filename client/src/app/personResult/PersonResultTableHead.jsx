@@ -20,7 +20,7 @@ class PersonResultTableHead extends Component {
   };
 
   render = () => {
-    const { order, orderBy } = this.props;
+    const { sortOrder, sortColumn } = this.props;
 
     return (
       <TableHead>
@@ -32,9 +32,9 @@ class PersonResultTableHead extends Component {
                 key={column.id}
                 align={column.numeric ? 'right' : 'left'}
                 padding={column.disablePadding ? 'none' : 'default'}
-                sortDirection={orderBy === column.id ? order : false}>
+                sortDirection={sortColumn === column.id ? sortOrder : false}>
                 <Tooltip title="Sort" placement={column.numeric ? 'bottom-end' : 'bottom-start'} enterDelay={300}>
-                  <TableSortLabel active={orderBy === column.id} direction={order} onClick={this.createSortHandler(column.id)}>
+                  <TableSortLabel active={sortColumn === column.id} direction={sortOrder} onClick={this.createSortHandler(column.id)}>
                     {column.label}
                   </TableSortLabel>
                 </Tooltip>
@@ -50,8 +50,8 @@ class PersonResultTableHead extends Component {
 
 PersonResultTableHead.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
+  sortOrder: PropTypes.string.isRequired,
+  sortColumn: PropTypes.string.isRequired,
 };
 
 export default PersonResultTableHead;

@@ -7,52 +7,52 @@ import PersonResult from './PersonResult';
 import { PersonsPropType } from './PropTypes';
 import * as localStateActions from '../../framework/localState/Actions';
 
-const desc = (a, b, orderBy) => {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-
-  return 0;
-};
-
-const stableSort = (array, cmp) => {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-
-  stabilizedThis.sort((a, b) => {
-    const order = cmp(a[0], b[0]);
-
-    if (order !== 0) {
-      return order;
-    }
-
-    return a[1] - b[1];
-  });
-
-  return stabilizedThis.map(el => el[0]);
-};
-
-const getSorting = (order, orderBy) => (order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy));
-
 class PersonResultContainer extends Component {
   state = {
-    order: 'asc',
-    orderBy: 'name',
     selected: [],
   };
 
-  handleRequestSort = (event, property) => {
-    const { state } = this;
-    let order = 'desc';
-
-    if (state.orderBy === property && state.order === 'desc') {
-      order = 'asc';
+  desc = (a, b, sortColumn) => {
+    if (b[sortColumn] < a[sortColumn]) {
+      return -1;
     }
 
-    this.setState({ order, orderBy: property });
+    if (b[sortColumn] > a[sortColumn]) {
+      return 1;
+    }
+
+    return 0;
+  };
+
+  stableSort = (array, cmp) => {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+
+    stabilizedThis.sort((a, b) => {
+      const sortOrder = cmp(a[0], b[0]);
+
+      if (sortOrder !== 0) {
+        return sortOrder;
+      }
+
+      return a[1] - b[1];
+    });
+
+    return stabilizedThis.map(el => el[0]);
+  };
+
+  getSorting = (sortOrder, sortColumn) => (sortOrder === 'desc' ? (a, b) => this.desc(a, b, sortColumn) : (a, b) => -this.desc(a, b, sortColumn));
+
+  handleRequestSort = (event, newSortColumn) => {
+    const { sortOrder, sortColumn } = this.props;
+    const { localStateActions } = this.props;
+    let newSortOrder = 'desc';
+
+    if (sortColumn === sortColumn && sortOrder === 'desc') {
+      newSortOrder = 'asc';
+    }
+
+    localStateActions.sortColumnChanged(Map({ column: newSortColumn }));
+    localStateActions.sortOrderChanged(Map({ order: newSortOrder }));
   };
 
   handleClick = (event, id) => {
@@ -92,15 +92,17 @@ class PersonResultContainer extends Component {
   };
 
   render = () => {
-    const { unorderedPersons, page, rowsPerPage } = this.props;
-    const { order, orderBy } = this.state;
-    const persons = stableSort(unorderedPersons, getSorting(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    const { unorderedPersons, page, rowsPerPage, sortOrder, sortColumn } = this.props;
+    const persons = this.stableSort(unorderedPersons, this.getSorting(sortOrder, sortColumn)).slice(
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage,
+    );
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, unorderedPersons.length - page * rowsPerPage);
 
     return (
       <PersonResult
-        order={order}
-        orderBy={orderBy}
+        sortOrder={sortOrder}
+        sortColumn={sortColumn}
         page={page}
         rowsPerPage={rowsPerPage}
         toatlPersonCount={unorderedPersons.length}
@@ -118,6 +120,8 @@ class PersonResultContainer extends Component {
 PersonResultContainer.propTypes = {
   localStateActions: PropTypes.object.isRequired,
   unorderedPersons: PersonsPropType.isRequired,
+  sortOrder: PropTypes.string.isRequired,
+  sortColumn: PropTypes.string.isRequired,
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
 };
@@ -125,6 +129,8 @@ PersonResultContainer.propTypes = {
 const mapStateToProps = state => {
   return {
     unorderedPersons: state.personApi.get('persons').toJS(),
+    sortOrder: state.localState.get('sortOrder'),
+    sortColumn: state.localState.get('sortColumn'),
     page: state.localState.get('pageNumber'),
     rowsPerPage: state.localState.get('rowsPerPage'),
   };

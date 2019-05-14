@@ -15,8 +15,8 @@ const PersonResult = ({
   classes,
   toatlPersonCount,
   persons,
-  order,
-  orderBy,
+  sortOrder,
+  sortColumn,
   rowsPerPage,
   page,
   onRequestSort,
@@ -30,7 +30,7 @@ const PersonResult = ({
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
         <Table className={classes.table} aria-labelledby="tableTitle">
-          <PersonResultTableHead order={order} orderBy={orderBy} onRequestSort={onRequestSort} />
+          <PersonResultTableHead sortOrder={sortOrder} sortColumn={sortColumn} onRequestSort={onRequestSort} />
           <TableBody>
             {persons.map(person => (
               <Person key={person._id} onClick={onClick} person={person} isSelected={isSelected(person._id)} />
@@ -59,8 +59,8 @@ const PersonResult = ({
 
 PersonResult.propTypes = {
   classes: PropTypes.object.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
+  sortOrder: PropTypes.string.isRequired,
+  sortColumn: PropTypes.string.isRequired,
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
   toatlPersonCount: PropTypes.number.isRequired,
