@@ -58,7 +58,7 @@ class App extends Component {
             onClose={this.handleRequestCloseSnackbar}
             anchorOrigin={{
               vertical: 'bottom',
-              horizontal: 'left',
+              horizontal: 'center',
             }}>
             <MessageBarContent variant="error" message={errorMessageToDisplay} onClose={this.handleRequestCloseSnackbar} />
           </Snackbar>
