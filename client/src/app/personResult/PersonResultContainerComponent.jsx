@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import PersonResult from './PersonResult';
 import { PersonsPropType } from './PropTypes';
+import { Loading } from '../../sharedComponents/loading';
 
 class PersonResultContainerComponent extends Component {
   state = {
@@ -98,14 +99,16 @@ class PersonResultContainerComponent extends Component {
 
   render = () => {
     const { selected } = this.state;
-    const { unorderedPersons, page, rowsPerPage, sortOrder, sortColumn } = this.props;
+    const { unorderedPersons, page, rowsPerPage, sortOrder, sortColumn, isLoading } = this.props;
     const persons = this.stableSort(unorderedPersons, this.getSorting(sortOrder, sortColumn)).slice(
       page * rowsPerPage,
       page * rowsPerPage + rowsPerPage,
     );
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, unorderedPersons.length - page * rowsPerPage);
 
-    return (
+    return isLoading ? (
+      <Loading />
+    ) : (
       <PersonResult
         sortOrder={sortOrder}
         sortColumn={sortColumn}
@@ -114,6 +117,7 @@ class PersonResultContainerComponent extends Component {
         totalPersonCount={unorderedPersons.length}
         persons={persons}
         emptyRows={emptyRows}
+        isLoading={isLoading}
         isSelected={this.isSelected}
         numSelected={selected.length}
         onRequestSort={this.handleRequestSort}
@@ -133,6 +137,7 @@ PersonResultContainerComponent.propTypes = {
   sortColumn: PropTypes.string.isRequired,
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default PersonResultContainerComponent;

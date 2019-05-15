@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import superagent from 'superagent';
-import Immutable, { Map } from 'immutable';
+import Immutable from 'immutable';
 import ActionTypes from './ActionTypes';
 import * as Actions from './Actions';
 import Config from '../../framework/config';
@@ -42,7 +42,7 @@ function* searchPersonsAsync(action) {
 
     const result = yield call(searchPersons, criteria);
 
-    yield put(Actions.searchPersonsSucceeded(Map({ persons: Immutable.fromJS(result.body) })));
+    yield put(Actions.searchPersonsSucceeded(action.payload.set('persons', Immutable.fromJS(result.body))));
   } catch (exception) {
     yield put(Actions.searchPersonsFailed(action.payload.set('errorMessage', exception.message)));
   }
