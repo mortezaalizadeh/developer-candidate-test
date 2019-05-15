@@ -24,7 +24,7 @@ AppWrapper = withStyles(styles)(AppWrapper);
 
 const context = createContext();
 
-function withRoot(Component) {
+const withRoot = Component => {
   class WithRoot extends React.Component {
     componentDidMount() {
       // Remove the server-side injected CSS.
@@ -52,6 +52,6 @@ function withRoot(Component) {
   }
 
   return WithRoot;
-}
+};
 
 export default withRoot;
