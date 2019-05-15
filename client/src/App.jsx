@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Snackbar from '@material-ui/core/Snackbar';
-import Fade from '@material-ui/core/Fade';
 import { withStyles } from '@material-ui/core';
+import { Map } from 'immutable';
 import withRoot from './sharedComponents/withRoot';
 import { EverybodyContainer, MaleContainer, FemaleContainer, Over30Container, Under30Container } from './app/pages';
+import * as personApiActions from './api/person/Actions';
+import { MessageBarContent } from './sharedComponents/messageBar';
 import Styles from './Styles';
 import './App.css';
 
@@ -21,8 +24,14 @@ class App extends Component {
     },
   };
 
-  showSnackbar = errorMessageToDisplay => {
-    this.setState({ snackbar: { open: true, errorMessageToDisplay } });
+  static getDerivedStateFromProps = ({ personApiFailedOperations, personApiActions }) => {
+    const errorMessageToDisplay = personApiFailedOperations.reduce((reduction, value) => reduction + value.get('errorMessage') + '\n', '');
+
+    personApiFailedOperations.keySeq().forEach(operationId => {
+      personApiActions.acknowledgeFailedOperation(Map({ operationId }));
+    });
+
+    return errorMessageToDisplay === '' ? null : { snackbar: { open: true, errorMessageToDisplay } };
   };
 
   handleRequestCloseSnackbar = () => {
@@ -31,7 +40,9 @@ class App extends Component {
 
   render = () => {
     const { classes } = this.props;
-    const { snackbar } = this.state;
+    const {
+      snackbar: { open, errorMessageToDisplay },
+    } = this.state;
 
     return (
       <Router history={history}>
@@ -43,13 +54,14 @@ class App extends Component {
           <Route path="/over30" exact component={Over30Container} />
           <Route path="/under30" exact component={Under30Container} />
           <Snackbar
-            open={snackbar.open}
-            onRequestClose={this.handleRequestCloseSnackbar}
-            transition={Fade}
-            SnackbarContentProps={{
-              'aria-describedby': 'message-id',
-            }}
-            message={<span id="message-id">{snackbar.errorMessageToDisplay}</span>} />
+            open={open}
+            onClose={this.handleRequestCloseSnackbar}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}>
+            <MessageBarContent variant="error" message={errorMessageToDisplay} onClose={this.handleRequestCloseSnackbar} />
+          </Snackbar>
         </div>
       </Router>
     );
@@ -60,13 +72,13 @@ App.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function mapStateToProps() {
-  return {};
-}
+const mapStateToProps = state => ({
+  personApiFailedOperations: state.personApi.get('failedOperations'),
+});
 
-function mapDispatchToProps() {
-  return {};
-}
+const mapDispatchToProps = dispatch => ({
+  personApiActions: bindActionCreators(personApiActions, dispatch),
+});
 
 export default withRoot(
   withStyles(Styles)(
