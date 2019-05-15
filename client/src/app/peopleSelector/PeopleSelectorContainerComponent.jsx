@@ -12,7 +12,7 @@ class PeopleSelectorContainerComponent extends Component {
   }
 
   searchPersons = selectedFilter => {
-    const { personApiActions } = this.props;
+    const { personApiActions, localStateActions } = this.props;
 
     if (selectedFilter === 'everybody') {
       personApiActions.searchPersons(Map());
@@ -25,6 +25,8 @@ class PeopleSelectorContainerComponent extends Component {
     } else if (selectedFilter === 'under30') {
       personApiActions.searchPersons(Map({ criteria: Map({ age_lt: 30 }) }));
     }
+
+    localStateActions.pageNumberChanged(Map({ pageNumber: 0 }));
   };
 
   handleSelectorSelected = selectedFilter => {
@@ -57,6 +59,7 @@ class PeopleSelectorContainerComponent extends Component {
 
 PeopleSelectorContainerComponent.propTypes = {
   personApiActions: PropTypes.object.isRequired,
+  localStateActions: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   selectedFilter: PropTypes.string.isRequired,
 };

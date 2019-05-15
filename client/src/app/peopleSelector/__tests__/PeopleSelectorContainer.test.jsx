@@ -20,21 +20,30 @@ class PersonAPIMock {
   }
 }
 
+class LocalStateMock {
+  constructor() {
+    this.pageNumberChanged = jest.fn();
+  }
+}
+
 describe('PeopleSelectorContainerComponent', () => {
   let selectedFilter;
   let component;
   let history;
   let personApi;
+  let localState;
 
   beforeEach(() => {
     selectedFilter = chance.string();
     history = new HistoryMock();
     personApi = new PersonAPIMock();
+    localState = new LocalStateMock();
 
     const injectedProps = {
       selectedFilter,
       history,
       personApiActions: personApi,
+      localStateActions: localState,
     };
 
     component = shallow(<PeopleSelectorContainerComponent {...injectedProps} />);
@@ -99,10 +108,10 @@ describe('PeopleSelectorContainerComponent', () => {
   });
 
   it('should dispatch searchPersons message to read everybody', () => {
-    const personApi = new PersonAPIMock();
     const injectedProps = {
       selectedFilter: 'everybody',
       personApiActions: personApi,
+      localStateActions: localState,
     };
 
     shallow(<PeopleSelectorContainerComponent {...injectedProps} />);
@@ -111,10 +120,10 @@ describe('PeopleSelectorContainerComponent', () => {
   });
 
   it('should dispatch searchPersons message to read male', () => {
-    const personApi = new PersonAPIMock();
     const injectedProps = {
       selectedFilter: 'male',
       personApiActions: personApi,
+      localStateActions: localState,
     };
 
     shallow(<PeopleSelectorContainerComponent {...injectedProps} />);
@@ -123,10 +132,10 @@ describe('PeopleSelectorContainerComponent', () => {
   });
 
   it('should dispatch searchPersons message to read female', () => {
-    const personApi = new PersonAPIMock();
     const injectedProps = {
       selectedFilter: 'female',
       personApiActions: personApi,
+      localStateActions: localState,
     };
 
     shallow(<PeopleSelectorContainerComponent {...injectedProps} />);
@@ -135,10 +144,10 @@ describe('PeopleSelectorContainerComponent', () => {
   });
 
   it('should dispatch searchPersons message to read over30', () => {
-    const personApi = new PersonAPIMock();
     const injectedProps = {
       selectedFilter: 'over30',
       personApiActions: personApi,
+      localStateActions: localState,
     };
 
     shallow(<PeopleSelectorContainerComponent {...injectedProps} />);
@@ -147,14 +156,19 @@ describe('PeopleSelectorContainerComponent', () => {
   });
 
   it('should dispatch searchPersons message to read under30', () => {
-    const personApi = new PersonAPIMock();
     const injectedProps = {
       selectedFilter: 'under30',
       personApiActions: personApi,
+      localStateActions: localState,
     };
 
     shallow(<PeopleSelectorContainerComponent {...injectedProps} />);
     expect(personApi.searchPersons.mock.calls).toHaveLength(1);
     expect(personApi.searchPersons.mock.calls[0][0].getIn(['criteria', 'age_lt'])).toBe(30);
+  });
+
+  it('should dispatch message to reset page number', () => {
+    expect(localState.pageNumberChanged.mock.calls).toHaveLength(1);
+    expect(localState.pageNumberChanged.mock.calls[0][0].get('pageNumber')).toBe(0);
   });
 });
