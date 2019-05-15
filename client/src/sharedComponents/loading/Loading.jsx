@@ -1,11 +1,20 @@
 import React from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import './loading.css';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Styles from './Styles';
 
-const Loading = () => (
-  <div className="loading-shading-mui">
-    <CircularProgress className="loading-icon-mui" />
-  </div>
-);
+function Loading(props) {
+  const { classes } = props;
+  return (
+    <div className={classes.root}>
+      <LinearProgress />
+    </div>
+  );
+}
 
-export default Loading;
+Loading.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(Styles)(Loading);
