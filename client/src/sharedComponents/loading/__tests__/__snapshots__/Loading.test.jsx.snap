@@ -2,32 +2,20 @@
 
 exports[`should render correctly 1`] = `
 <div
-  className="loading-shading-mui"
+  className="Loading-root-1"
 >
   <div
-    className="MuiCircularProgress-root-1 MuiCircularProgress-colorPrimary-4 MuiCircularProgress-indeterminate-3 loading-icon-mui"
+    className="MuiLinearProgress-root-2 MuiLinearProgress-colorPrimary-3 MuiLinearProgress-indeterminate-6"
     role="progressbar"
-    style={
-      Object {
-        "height": 40,
-        "width": 40,
-      }
-    }
   >
-    <svg
-      className="MuiCircularProgress-svg-6"
-      viewBox="22 22 44 44"
-    >
-      <circle
-        className="MuiCircularProgress-circle-7 MuiCircularProgress-circleIndeterminate-9"
-        cx={44}
-        cy={44}
-        fill="none"
-        r={20.2}
-        strokeWidth={3.6}
-        style={Object {}}
-      />
-    </svg>
+    <div
+      className="MuiLinearProgress-bar-12 MuiLinearProgress-barColorPrimary-13 MuiLinearProgress-bar1Indeterminate-15"
+      style={Object {}}
+    />
+    <div
+      className="MuiLinearProgress-bar-12 MuiLinearProgress-barColorPrimary-13 MuiLinearProgress-bar2Indeterminate-18"
+      style={Object {}}
+    />
   </div>
 </div>
 `;
